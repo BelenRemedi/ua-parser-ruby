@@ -19,7 +19,11 @@ module UAParser
     JS
 
     def self.path
-      @path ||= ENV['UA_PARSER_SOURCE_PATH'] || bundled_path
+      @path ||= if File.exists?(ENV['UA_PARSER_SOURCE_PATH'])
+                  ENV['UA_PARSER_SOURCE_PATH']
+                else
+                  bundled_path
+                end
     end
 
     def self.contents
